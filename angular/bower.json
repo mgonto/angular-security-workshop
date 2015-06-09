@@ -1,0 +1,34 @@
+{
+  "name": "ngEurope",
+  "version": "0.0.0",
+  "homepage": "https://github.com/auth0/ngeurope-demo",
+  "authors": [
+    "Martin Gontovnikas <martin@gon.to>"
+  ],
+  "description": "ngEurope Auth0 sample",
+  "main": "app.js",
+  "keywords": [
+    "ngEurope",
+    "sample",
+    "angular"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angularjs": "~1.3",
+    "bootstrap": "~3.2.0",
+    "font-awesome": "~4.2.0",
+    "ui-router": "~0.2.11",
+    "angular-jwt": "~0.0.4",
+    "a0-angular-storage": "~0.0.6",
+    "typekit-load": "~0.1.2",
+    "angular-ui-router": "~0.2.11"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor",
+    "test",
+    "tests"
+  ]
+}
