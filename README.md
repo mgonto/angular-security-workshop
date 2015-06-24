@@ -22,10 +22,6 @@ These are the challenges for the third module.
 - Intercept the `$stateChangeStart` event and check if the route is restricted
 - Intercept the `$stateChangeStart` event and validate the user session
 
-**angular/login.js**
-
-- Pending
-
 # License
 
 MIT
