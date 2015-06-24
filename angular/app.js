@@ -8,21 +8,11 @@ angular.module( 'sample', [
 .config( function myAppConfig ($urlRouterProvider, jwtInterceptorProvider, $httpProvider) {
   $urlRouterProvider.otherwise('/');
 
-  jwtInterceptorProvider.tokenGetter = function(store) {
-    return store.get('jwt');
-  }
-
-  $httpProvider.interceptors.push('jwtInterceptor');
+  // CHALLENGE: Add jwtInterceptorProvider as an interceptor to the application
 })
 .run(function($rootScope, $state, store, jwtHelper) {
-  $rootScope.$on('$stateChangeStart', function(e, to) {
-    if (to.data && to.data.requiresLogin) {
-      if (!store.get('jwt') || jwtHelper.isTokenExpired(store.get('jwt'))) {
-        e.preventDefault();
-        $state.go('login');
-      }
-    }
-  });
+  // CHALLENGE: Intercept the $stateChangeStart event and check if the route is restricted
+  // CHALLENGE: Intercept the `$stateChangeStart` event and validate the user session
 })
 .controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
   $scope.$on('$routeChangeSuccess', function(e, nextRoute){

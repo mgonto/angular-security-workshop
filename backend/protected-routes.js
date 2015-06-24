@@ -5,11 +5,7 @@ var express = require('express'),
 
 var app = module.exports = express.Router();
 
-var jwtCheck = jwt({
-  secret: config.secret
-});
-
-app.use('/api/protected', jwtCheck);
+// CHALLENGE: Use express-jwt to validate the user session
 
 app.get('/api/protected/random-quote', function(req, res) {
   res.status(200).send(quoter.getRandomOne());
