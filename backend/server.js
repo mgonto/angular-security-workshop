@@ -3,23 +3,16 @@ var logger          = require('morgan'),
     http            = require('http'),
     express         = require('express'),
     errorhandler    = require('errorhandler'),
-    cors            = require('cors'),
     dotenv          = require('dotenv'),
-    passport        = require('passport'),
     bodyParser      = require('body-parser');
 
 var app = express();
 
 dotenv.load();
 
-// Parsers
-// old version of line
-// app.use(bodyParser.urlencoded());
-// new version of line
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(passport.initialize());
 
 app.use(function(err, req, res, next) {
   if (err.name === 'StatusError') {
@@ -34,9 +27,7 @@ if (process.env.NODE_ENV === 'development') {
   app.use(errorhandler())
 }
 
-app.use(require('./anonymous-routes'));
-app.use(require('./protected-routes'));
-app.use(require('./user-routes'));
+// CHALLENGE: Use the express app to mount the user-routes.js and anonymous-routes.js files
 
 var port = process.env.PORT || 3001;
 

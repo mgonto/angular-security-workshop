@@ -1,13 +1,11 @@
 var express = require('express'),
     _       = require('lodash'),
     config  = require('./config'),
-    jwt     = require('jsonwebtoken'),
-    passport = require('passport'),
-    FacebookStrategy = require('passport-facebook').Strategy;
+    jwt     = require('jsonwebtoken');
 
 var app = module.exports = express.Router();
 
-// XXX: This should be a database of users :).
+// NOTE: This should be a database of users.
 var users = [{
   id: 1,
   username: 'gonto',
@@ -15,12 +13,12 @@ var users = [{
   provider: 'local'
 }];
 
+
 function createToken(user) {
-  return jwt.sign(_.omit(user, 'password'), config.secret, { expiresInMinutes: 60*5 });
+  // CHALLENGE: Use jsonwebtoken to create and return a JWT
 }
 
-
-// Regular signup
+// Register
 app.post('/users', function(req, res) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).send("You must send the username and the password");
@@ -29,17 +27,13 @@ app.post('/users', function(req, res) {
    return res.status(400).send("A user with that username already exists");
   }
 
-  var profile = _.pick(req.body, 'username', 'password', 'extra');
-  profile.provider = 'local';
-  profile.id = _.max(users, 'id').id + 1;
+  // CHALLENGE: Create a new user and add it to the users array
 
-  users.push(profile);
-
-  res.status(201).send({
-    id_token: createToken(profile)
-  });
+  // CHALLENGE: Return the appropriate status and JWT
 });
 
+
+// Login
 app.post('/sessions/create', function(req, res) {
   if (!req.body.username || !req.body.password) {
     return res.status(400).send("You must send the username and the password");
@@ -54,37 +48,6 @@ app.post('/sessions/create', function(req, res) {
     return res.status(401).send("The username or password don't match");
   }
 
-  res.status(201).send({
-    id_token: createToken(user)
-  });
+  // CHALLENGE: Return the appropriate status and JWT
 });
-
-// Facebook signup
-app.get('/auth/facebook', 
-  passport.authenticate('facebook', {session: false}));
-
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {failureRedirect: 'http://localhost:3000/#/#error', session: false}),
-  function(req, res) {
-    var jwt = createToken(req.user);
-    res.redirect('http://localhost:3000/#/#jwt=' + jwt);
-  });
-
-passport.use(new FacebookStrategy({
-    clientID: '1113520895341582',
-    clientSecret: '98075e77f6320447cef79152cfa0cdfc',
-    callbackURL: "http://localhost:3001/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    
-    var user = {
-      username: profile.displayName,
-      provider: 'facebook',
-      token: accessToken
-    };
-    user.id = _.max(users, 'id').id + 1;
-    users.push(user);
-    done(null, user);
-  }
-));
 
