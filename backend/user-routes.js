@@ -7,7 +7,7 @@ var express = require('express'),
 
 var app = module.exports = express.Router();
 
-// XXX: This should be a database of users :).
+// NOTE: This should be a database of users.
 var users = [{
   id: 1,
   username: 'gonto',
@@ -59,32 +59,9 @@ app.post('/sessions/create', function(req, res) {
   });
 });
 
-// Facebook signup
-app.get('/auth/facebook', 
-  passport.authenticate('facebook', {session: false}));
+// CHALLENGE: Create a route for /auth/facebook that appropriately uses passport
 
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', {failureRedirect: 'http://localhost:3000/#/#error', session: false}),
-  function(req, res) {
-    var jwt = createToken(req.user);
-    res.redirect('http://localhost:3000/#/#jwt=' + jwt);
-  });
+// CHALLENGE: Create a route for /auth/facebook/callback to handle authentication response
 
-passport.use(new FacebookStrategy({
-    clientID: '1113520895341582',
-    clientSecret: '98075e77f6320447cef79152cfa0cdfc',
-    callbackURL: "http://localhost:3001/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    
-    var user = {
-      username: profile.displayName,
-      provider: 'facebook',
-      token: accessToken
-    };
-    user.id = _.max(users, 'id').id + 1;
-    users.push(user);
-    done(null, user);
-  }
-));
+// CHALLENGE: Instantiate passport with an appropriate FacebookStrategy
 

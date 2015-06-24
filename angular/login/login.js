@@ -4,20 +4,7 @@ angular.module( 'sample.login', [
 ])
 .run(function($rootScope, $location, $state, store) {
   $rootScope.$on('$locationChangeStart', function() {
-    var hash = $location.hash();
-    if (hash.match(/error/)) {
-      alert("Error logging in");
-      $state.go('login');
-    }
-    var loginResults = hash.match(/jwt=(.+)/);
-    if(!loginResults) {
-      // Invalid hash URL
-      return;
-    } else {
-      var jwt = loginResults[1];
-      store.set('jwt', jwt);
-      state.go('home');
-    }
+    // CHALLENGE: Parse $location and respond appropriately based Facebook response
   });
 })
 .config(function($stateProvider) {
