@@ -3,27 +3,14 @@ angular.module( 'sample.signup', [
   'angular-storage'
 ])
 .config(function($stateProvider) {
-  $stateProvider.state('signup', {
-    url: '/signup',
-    controller: 'SignupCtrl',
-    templateUrl: 'signup/signup.html'
-  });
+    // CHALLENGE: Add a signup route
 })
-.controller( 'SignupCtrl', function SignupController( $scope, $http, store, $state) {
+.controller( 'SignupCtrl', function SignupController( $scope, store, $state) {
+    $scope.user = {};
 
-  $scope.user = {};
-
-  $scope.createUser = function() {
-    $http({
-      url: 'http://localhost:3001/users',
-      method: 'POST',
-      data: $scope.user
-    }).then(function(response) {
-      store.set('jwt', response.data.id_token);
-      $state.go('home');
-    }, function(error) {
-      alert(error.data);
-    });
-  }
-
+    $scope.createUser = function () {
+      // CHALLENGE: Handle creating the user
+      // HINT: What information would we save?
+      // HINT: Where should a registered user be?
+    };
 });
