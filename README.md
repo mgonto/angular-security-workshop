@@ -10,7 +10,7 @@ To run the backend, just do `npm i` and `node server.js`
 
 ## Challenges
 
-These are the challenges for the second module. The goal is to familiarize ourselves with *ui-router*, *angular-storage* and *route change events*.
+These are the challenges for the third module.
 
 **backend/protected-routes.js**
 
